@@ -9,9 +9,9 @@ pip install netmiko
 #### Usage
 
 ```bash
-chmod +x arubaos_controller.py
+chmod +x collect_client.py
 
-./arubaos_controller.py
+./collect_client.py
 
 Collecting data............
 {
