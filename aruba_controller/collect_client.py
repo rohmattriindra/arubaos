@@ -6,8 +6,8 @@ import json
 controller = {
      'device_type': 'aruba_os',
      'ip':   '10.1.2.3',
-     'username': 'fakeuser',
-     'password': 'fakepass',
+     'username': 'your_username',
+     'password': 'your_password',
      'port': 22,
      'verbose': False,
  }
