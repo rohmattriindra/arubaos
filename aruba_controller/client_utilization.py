@@ -6,11 +6,11 @@ import argparse
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--source-file", dest="list_ap", help="List of Access Point Aruba")
-    parser.add_argument("-o", "--output-client", dest="output_client", help="Output Client Usage each Access Point")
-    parser.add_argument("-j", "--output-json", dest="output_client_json", help="Output Client Usage each AP with JSON Format" )
-    parser.add_argument("-p", "--port", dest="port", help="listening port service" )
-    parser.add_argument("-ip", "--ip", dest="ip", help="IP Address Controller" )
+    parser.add_argument("-s", "--source-file", dest="list_ap", required=True, help="List of Access Point Aruba")
+    parser.add_argument("-o", "--output-client", dest="output_client", required=True help="Output Client Usage each Access Point")
+    parser.add_argument("-j", "--output-json", dest="output_client_json", required=True help="Output Client Usage each AP with JSON Format" )
+    parser.add_argument("-p", "--port", dest="port",required=True help="listening port service" )
+    parser.add_argument("-ip", "--ip", dest="ip", required=True, help="IP Address Controller" )
 
     return parser.parse_args()
 
@@ -23,7 +23,11 @@ def gather_clients():
 
     for device in devices_list:
         AP = ssh_connection.send_command("show user-table ap-name " + device +  " | include Entries") 
-        result = AP[15:17].replace('/','')
+        out_ap = re.findall(r'(\d+)/', AP)
+        result = ''.join([str(out_ap)])
+        rem_chars = ("[']")
+        for i in rem_chars:
+            result = result.replace (i,"")
         outfile = "ap_name:" + device + " | " + "value:" + result + "\n"
         print (outfile)
         result = open (args.output_client, "a")
