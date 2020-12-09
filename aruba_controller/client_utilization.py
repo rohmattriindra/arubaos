@@ -1,15 +1,15 @@
 from netmiko import ConnectHandler
 from prometheus_client.core import GaugeMetricFamily, REGISTRY, CounterMetricFamily, Gauge
 from prometheus_client import start_http_server
-import json, os, time, sys
+import json, os, time, sys, re
 import argparse
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", "--source-file", dest="list_ap", required=True, help="List of Access Point Aruba")
-    parser.add_argument("-o", "--output-client", dest="output_client", required=True help="Output Client Usage each Access Point")
-    parser.add_argument("-j", "--output-json", dest="output_client_json", required=True help="Output Client Usage each AP with JSON Format" )
-    parser.add_argument("-p", "--port", dest="port",required=True help="listening port service" )
+    parser.add_argument("-o", "--output-client", dest="output_client", required=True, help="Output Client Usage each Access Point")
+    parser.add_argument("-j", "--output-json", dest="output_client_json", required=True, help="Output Client Usage each AP with JSON Format" )
+    parser.add_argument("-p", "--port", dest="port",required=True, help="listening port service" )
     parser.add_argument("-ip", "--ip", dest="ip", required=True, help="IP Address Controller" )
 
     return parser.parse_args()
